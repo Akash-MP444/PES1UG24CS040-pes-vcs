@@ -46,12 +46,12 @@ int hex_to_hash(const char *hex, ObjectID *id_out);
 
 // ─── Author Configuration ───────────────────────────────────────────────────
 // PES-VCS reads the author name from the environment variable PES_AUTHOR.
-// If unset, it defaults to "PES User <pes@localhost>".
+// If unset, it defaults to "Akash M P <PES1UG24CS040>".
 //
 // To set your name:
-//   export PES_AUTHOR="Your Name <PESXUG24CS042>"
+//   export PES_AUTHOR="Akash M P <PES1UG24CS040>"
 
-#define DEFAULT_AUTHOR "PES User <pes@localhost>"
+#define DEFAULT_AUTHOR "Akash M P <PES1UG24CS040>"
 
 static inline const char* pes_author(void) {
     const char *env = getenv("PES_AUTHOR");

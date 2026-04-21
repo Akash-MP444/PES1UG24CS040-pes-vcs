@@ -1,16 +1,11 @@
 // commit.c — Commit creation and history traversal
-//
 // Commit object format (stored as text, one field per line):
-//
 //   tree <64-char-hex-hash>
 //   parent <64-char-hex-hash>        ← omitted for the first commit
 //   author <name> <unix-timestamp>
 //   committer <name> <unix-timestamp>
-//
 //   <commit message>
-//
 // Note: there is a blank line between the headers and the message.
-//
 // PROVIDED functions: commit_parse, commit_serialize, commit_walk, head_read, head_update
 // TODO functions:     commit_create
 
@@ -29,7 +24,7 @@
 int object_write(ObjectType type, const void *data, size_t len, ObjectID *id_out);
 int object_read(const ObjectID *id, ObjectType *type_out, void **data_out, size_t *len_out);
 
-// ─── PROVIDED ────────────────────────────────────────────────────────────────
+// ─── PROVIDED ───────────────────────────────────────────────
 
 // Parse raw commit data into a Commit struct.
 int commit_parse(const void *data, size_t len, Commit *commit_out)
@@ -241,10 +236,9 @@ int head_update(const ObjectID *new_commit)
     return rename(tmp_path, target_path);
 }
 
-// ─── TODO: Implement these ───────────────────────────────────────────────────
+// ─── TODO: Implement these ─────────────────────────────
 
 // Create a new commit from the current staging area.
-//
 // HINTS - Useful functions to call:
 //   - tree_from_index   : writes the directory tree and gets the root hash
 //   - head_read         : gets the parent commit hash (if any)

@@ -1,11 +1,8 @@
 // tree.c — Tree object serialization and construction
-//
 // PROVIDED functions: get_file_mode, tree_parse, tree_serialize
 // TODO functions:     tree_from_index
-//
 // Binary tree format (per entry, concatenated with no separators):
 //   "<mode-as-ascii-octal> <name>\0<32-byte-binary-hash>"
-//
 // Example single entry (conceptual):
 //   "100644 hello.txt\0" followed by 32 raw bytes of SHA-256
 
@@ -17,7 +14,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-// ─── Mode Constants ─────────────────────────────────────────────────────────
+// ─── Mode Constants ───────────────────────
 
 #define MODE_FILE 0100644
 #define MODE_EXEC 0100755
@@ -25,7 +22,7 @@
 
 int object_write(ObjectType type, const void *data, size_t len, ObjectID *id_out);
 
-// ─── PROVIDED ───────────────────────────────────────────────────────────────
+// ─── PROVIDED ──────────────────────────────
 
 // Determine the object mode for a filesystem path.
 uint32_t get_file_mode(const char *path)
@@ -103,7 +100,6 @@ static int compare_tree_entries(const void *a, const void *b)
 // Returns 0 on success, -1 on error.
 int tree_serialize(const Tree *tree, void **data_out, size_t *len_out)
 {
-    // Estimate max size: (6 bytes mode + 1 byte space + 256 bytes name + 1 byte null + 32 bytes hash) per entry
     size_t max_size = tree->count * 296;
     uint8_t *buffer = malloc(max_size);
     if (!buffer)
@@ -118,11 +114,9 @@ int tree_serialize(const Tree *tree, void **data_out, size_t *len_out)
     {
         const TreeEntry *entry = &sorted_tree.entries[i];
 
-        // Write mode and name (%o writes octal correctly for Git standards)
         int written = sprintf((char *)buffer + offset, "%o %s", entry->mode, entry->name);
         offset += written + 1; // +1 to step over the null terminator written by sprintf
 
-        // Write binary hash
         memcpy(buffer + offset, entry->hash.hash, HASH_SIZE);
         offset += HASH_SIZE;
     }
@@ -132,7 +126,7 @@ int tree_serialize(const Tree *tree, void **data_out, size_t *len_out)
     return 0;
 }
 
-// ─── TODO: Implement these ──────────────────────────────────────────────────
+// ─── TODO: Implement these ──────────────────────────
 
 // Build a tree hierarchy from the current index and write all tree
 // objects to the object store.

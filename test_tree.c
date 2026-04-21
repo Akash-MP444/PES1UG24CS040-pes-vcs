@@ -1,5 +1,4 @@
 // test_tree.c — Phase 2 test program
-//
 // Compile and run:
 //   make test_tree
 //   ./test_tree
@@ -12,7 +11,6 @@
 #include <stdlib.h>
 
 void test_tree_roundtrip(void) {
-    // Build a tree manually
     Tree original;
     original.count = 3;
 
@@ -62,7 +60,6 @@ void test_tree_roundtrip(void) {
 }
 
 void test_tree_determinism(void) {
-    // Same entries in different order must produce identical serialization
     Tree tree_a, tree_b;
     tree_a.count = 2;
     tree_b.count = 2;

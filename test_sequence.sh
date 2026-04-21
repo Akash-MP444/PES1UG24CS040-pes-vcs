@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-#
 # test_sequence.sh — End-to-end integration test for PES-VCS
-#
 # Run from the repository root after compiling:
 #   make
 #   ./test_sequence.sh
@@ -21,7 +19,7 @@ cd "$TEST_DIR"
 echo "=== PES-VCS Integration Test ==="
 echo ""
 
-# ── Init ───────────────────────────────────────────────────────────────────
+# ── Init ────────────────────────────────────────────
 echo "--- Repository Initialization ---"
 $PES init
 [ -d .pes/objects ] && echo "PASS: .pes/objects exists" || echo "FAIL: .pes/objects missing"
@@ -29,7 +27,7 @@ $PES init
 [ -f .pes/HEAD ] && echo "PASS: .pes/HEAD exists" || echo "FAIL: .pes/HEAD missing"
 echo ""
 
-# ── Add and Status ─────────────────────────────────────────────────────────
+# ── Add and Status ───────────────────────────────────
 echo "--- Staging Files ---"
 echo "version 1" > file.txt
 echo "hello world" > hello.txt
@@ -38,7 +36,7 @@ echo "Status after add:"
 $PES status
 echo ""
 
-# ── First Commit ───────────────────────────────────────────────────────────
+# ── First Commit ───────────────────────────────────
 echo "--- First Commit ---"
 $PES commit -m "Initial commit"
 echo ""
@@ -46,7 +44,7 @@ echo "Log after first commit:"
 $PES log
 echo ""
 
-# ── Modify and Recommit ───────────────────────────────────────────────────
+# ── Modify and Recommit ──────────────────────────────
 echo "--- Second Commit ---"
 echo "version 2" >> file.txt
 $PES add file.txt
